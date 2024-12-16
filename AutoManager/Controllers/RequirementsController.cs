@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using AutoManager.Models;
 using AutoManager.Data;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace AutoManager.Controllers
@@ -11,51 +12,93 @@ namespace AutoManager.Controllers
     public class RequirementsController : ControllerBase
     {
         private readonly ApiContext _context;
-
         public RequirementsController(ApiContext context)
         {
             _context = context;
-
-
         }
 
-        // Create/Update
-        [HttpPost]
-        public JsonResult CreateEdit(Requirement requirement)
+        // [HttpGet("toList")]
+        // public JsonResult CreateToList()
+        // {
+        //     return new JsonResult(_context.Requirements.ToList());
+        // }
+        
+        // Returns list of all requirements
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Requirement>>> GetRequirements()
         {
-            if (requirement.Id == 0)
+            return await _context.Requirements.ToListAsync();
+        }
+        
+        // Creates a new requirement
+        [HttpPost]
+        public JsonResult Create(Requirement requirement)
+        {
+            if (requirement.Id == 0) 
             {
                 _context.Requirements.Add(requirement);
             }
-            else
-            {
-                var requirementInDb = _context.Requirements.Find(requirement.Id);
-                if (requirementInDb == null)
-                    return new JsonResult(NotFound());
 
-                requirementInDb = requirement;
-            }
             _context.SaveChanges();
             return new JsonResult(Ok(requirement));
         }
-
-
-
-        // Read by ID
-        [HttpGet]
-        public JsonResult Get(int id)
+        
+        // Update
+        [HttpPut]
+        public JsonResult Update(Requirement requirement)
         {
-            var result = _context.Requirements.Find(id);
-            if (result == null)
+            _context.Requirements.Update(requirement);
+            _context.SaveChanges();
+            return new JsonResult(Ok(requirement));
+        }
+        
+
+        // Create/Update
+        // [HttpPost]
+        // public JsonResult CreateEdit(Requirement requirement)
+        // {
+        //     if (requirement.Id == 0)
+        //     {
+        //         _context.Requirements.Add(requirement);
+        //     }
+        //     else
+        //     {
+        //         var requirementInDb = _context.Requirements.Find(requirement.Id);
+        //         if (requirementInDb == null)
+        //             return new JsonResult(NotFound());
+        //         requirementInDb = requirement;
+        //     }
+        //     _context.SaveChanges();
+        //     return new JsonResult(Ok(requirement));
+        // }
+
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Requirement>> GetRequirement(int id)
+        {
+            var requirement = await _context.Requirements.FindAsync(id);
+            if (requirement == null)
             {
                 return new JsonResult(NotFound());
             }
-            return new JsonResult(Ok(result));
+            return new JsonResult(requirement);
         }
+
+        // Read by ID
+        // [HttpGet]
+        // public JsonResult Get(int id)
+        // {
+        //     var result = _context.Requirements.Find(id);
+        //     if (result == null)
+        //     {
+        //         return new JsonResult(NotFound());
+        //     }
+        //     return new JsonResult(Ok(result));
+        // }
 
 
         // Remove
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public JsonResult Delete(int id)
         {
             var result = _context.Requirements.Find(id);
@@ -65,7 +108,6 @@ namespace AutoManager.Controllers
             }
             _context.Requirements.Remove(result);
             _context.SaveChanges();
-
             return new JsonResult("Requirement has been removed");
         }
     }
