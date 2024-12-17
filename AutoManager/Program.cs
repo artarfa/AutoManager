@@ -3,8 +3,21 @@ using AutoManager.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalHost63342", builder =>
+    {
+        builder.WithOrigins("http://localhost:63342")
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
+
+
+
+// Add services to the container.
 builder.Services.AddDbContext<ApiContext>
     (options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -15,7 +28,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
+app.UseCors("AllowLocalHost63342");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
