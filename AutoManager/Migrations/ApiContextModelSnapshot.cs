@@ -39,7 +39,7 @@ namespace AutoManager.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Requirements");
+                    b.ToTable("Requirements", (string)null);
                 });
 #pragma warning restore 612, 618
         }

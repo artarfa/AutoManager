@@ -2,24 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Auto Requirements</title>
+    <title>Auto Manager</title>
 </head>
+<link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
 <link rel="stylesheet" href="styles.css">
 <body>
 
-<h1 id="Requirements">Auto Requirements 🔧</h1>
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Description</th>
-    </tr>
-    </thead>
-    <tbody id="tableRows"></tbody>
-</table>
-    
+<h1 id="Requirements">Auto Manager 🔧</h1>
+<h2>Requirements</h2>
+<div class="tableDiv">
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody id="tableRows"></tbody>
+    </table> 
+</div>
+
+<div class="container">
+
     <div id="addDiv">
+        <h3>Add a requirement</h3>
         <form id="requirementInput">
             <label for="title"></label><br>
             <input type="text" id="title" name="title"><br>
@@ -30,13 +37,30 @@
     </div>
     
     
+
+
+    <div id ="updateDiv">
+        <h3>Update a requirement</h3>
+        <form id="updateInput">
+            <label for="id2"></label><br>
+            <input type="text" id="id2" name="id2"><br>
+            <button id="updateRequirement" type="button">Update</button>
+        </form>
+    </div>
+
     <div id ="deleteDiv">
+        <h3>Delete a requirement</h3>
         <form id="deleteInput">
             <label for="id"></label><br>
             <input type="text" id="id" name="id"><br>
             <button id="deleteRequirement" type="button">Delete</button>
         </form>
     </div>
+    
+    
+</div>
+    
+
 <script src="main.js"></script>
 
 </body>

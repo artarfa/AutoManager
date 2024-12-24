@@ -1,6 +1,21 @@
 
 * {
-    font-family: 'Rubik', sans-serif;
+    font-family: Inter, sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    text-align: left;
+    margin-left: 50px;
+    color: white;
+}
+
+h3 {
+    text-align: left;
+    margin: 0;
 }
 
 button {
@@ -12,33 +27,69 @@ button {
     margin-top: 15px;
 }
 
+.tableDiv {
+    overflow: auto;
+    max-height: 400px;
+}
+
+.tableDiv thead th{
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #283149;
+}
+
 input {
     width: 200px;
     height: 25px;
     font-size: 16px;
 }
 
-body {background-color: #283149;}
+body {
+    background: rgb(0,51,102);
+    background: linear-gradient(159deg, rgba(0,51,102,1) 0%, rgba(15,82,186,1) 100%);
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+/*body {*/
+/*    background: #000428; */
+/*    background: -webkit-linear-gradient(to right, #004e92, #000428); */
+/*    background: linear-gradient(to right, #004e92, #000428); */
+/*}*/
+
 h1 {
     color: whitesmoke;
     margin-bottom: 100px;
 }
 table {
     width: 80%;
-    margin: 20px auto;
-    border-collapse: collapse;
+    margin-left:50px;
+    margin-bottom: 20px;
+    border-collapse: separate;
+    border-spacing: 0;
     text-align: center;
     border: 5px solid whitesmoke;
+    border-radius: 5px;
     background-color: #283149;
 }
 
-label {
-    color: black;
+.container {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 50px;
+    gap: 20px; /* space between divs */
 }
-#addDiv, #deleteDiv {
-    width: 80%;
-    margin-left: 20px;
+
+
+#addDiv , #updateDiv, #deleteDiv {
+    flex: 1;
     max-width: 300px;
+    margin-top: 50px;
+    height: 200px;
     padding: 20px;
     border: 1px solid #ddd;
     background: #fff;
@@ -47,19 +98,17 @@ label {
 }
 
 
-
 th {
+
     color: white;
     padding: 15px;
     text-align: center;
     font-size: 16px;
-    border-radius: 5px;
 }
 
 td {
     padding: 15px;
 }
-
 
 
 tbody tr:nth-child(even) {
@@ -70,13 +119,59 @@ tbody tr:nth-child(odd) {
     background-color: #fff;
 }
 
-
 #addRequirement {
-    background-color: lightskyblue;
-
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: linear-gradient(45deg, limegreen, green);
+    transition:
+            background 0.5s ease,
+            transform 0.5s ease,
+            box-shadow 0.5s ease
+}
+#addRequirement:hover {
+    background: linear-gradient(135deg, limegreen, green);
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
 }
 
 #deleteRequirement {
-    background-color: lightcoral;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: linear-gradient(45deg, red, darkred);
+    transition:
+            background 0.5s ease,
+            transform 0.5s ease,
+            box-shadow 0.5s ease
+}
+#deleteRequirement:hover {
+    background: linear-gradient(135deg, red, darkred);
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+}
 
+#updateRequirement {
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: linear-gradient(45deg, lightskyblue, deepskyblue);
+    transition:
+            background 0.5s ease,
+            transform 0.5s ease,
+            box-shadow 0.5s ease
+}
+#updateRequirement:hover {
+    background: linear-gradient(135deg, lightskyblue, deepskyblue);
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
 }
