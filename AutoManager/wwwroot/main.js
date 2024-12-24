@@ -1,12 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-
     
     
     document.getElementById('title').placeholder = "Title"
     document.getElementById('description').placeholder = "Description"
     document.getElementById('id').placeholder = "ID of Requirement"
-    
-    
+
+    document.getElementById('id2').placeholder = "ID of Requirement"
     
     const SERVER_URI = 'http://localhost:5167/api/Requirements'
     
@@ -76,8 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(`${SERVER_URI}/${id}`,
             {
                 method: 'DELETE',})
-        // remove visual display of row
-
+            
             .then(response => {
                 if (response.ok) {
                     console.log(`${id} has been deleted.`)
@@ -89,6 +87,68 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     document.getElementById('deleteRequirement').addEventListener('click', deleteRow);
 
+    
+    
+    function updateRow() {
+        const id = document.getElementById('id2').value.trim();
+        if (!id) {
+            alert("Please enter ID to update")
+            return;
+        }
+        
+        // First we get the item by ID, then use its title and description to fill the updatedRequirement
+
+        fetch(`${SERVER_URI}/${id}`,
+            {
+                method: 'GET'
+            }
+        )
+            .then(res => res.json())
+        .then(data => {
+            console.log(data)
+
+            const newTitle = prompt("Enter updated title:", data.title);
+            if (newTitle === null) {
+                // User cancelled the prompt
+                return;
+            }
+            const newDescription = prompt("Enter updated description:", data.description);
+            if (newDescription === null) {
+                // User cancelled the prompt
+                return;
+            }
+
+            const updatedRequirement = {
+                id: data.id,
+                title: newTitle.trim(),
+                description: newDescription.trim()
+            };
+
+            if (!updatedRequirement.title || !updatedRequirement.description) {
+                alert("Title and Description cannot be empty.");
+                return;
+            }
+            
+            // Update existing item
+            
+            fetch(SERVER_URI, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatedRequirement),
+            })
+                .then(res => res.json())
+            .then(updatedData => {
+                fetchAPIData();
+                document.getElementById("id2").value = '';
+            })
+            
+            
+
+        })
+    }
+    document.getElementById('updateRequirement').addEventListener('click', updateRow);
 
 
 });
