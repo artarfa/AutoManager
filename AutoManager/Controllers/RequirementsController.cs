@@ -18,13 +18,6 @@ namespace AutoManager.Controllers
         }
         
         
-        // [HttpGet("toList")]
-        // public JsonResult CreateToList()
-        // {
-        //     return new JsonResult(_context.Requirements.ToList());
-        // }
-        
-        // Returns list of all requirements
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Requirement>>> GetRequirements()
         {
@@ -54,26 +47,6 @@ namespace AutoManager.Controllers
         }
         
 
-        // Create/Update
-        // [HttpPost]
-        // public JsonResult CreateEdit(Requirement requirement)
-        // {
-        //     if (requirement.Id == 0)
-        //     {
-        //         _context.Requirements.Add(requirement);
-        //     }
-        //     else
-        //     {
-        //         var requirementInDb = _context.Requirements.Find(requirement.Id);
-        //         if (requirementInDb == null)
-        //             return new JsonResult(NotFound());
-        //         requirementInDb = requirement;
-        //     }
-        //     _context.SaveChanges();
-        //     return new JsonResult(Ok(requirement));
-        // }
-
-
         [HttpGet("{id}")]
         public async Task<ActionResult<Requirement>> GetRequirement(int id)
         {
@@ -84,18 +57,6 @@ namespace AutoManager.Controllers
             }
             return new JsonResult(requirement);
         }
-
-        // Read by ID
-        // [HttpGet]
-        // public JsonResult Get(int id)
-        // {
-        //     var result = _context.Requirements.Find(id);
-        //     if (result == null)
-        //     {
-        //         return new JsonResult(NotFound());
-        //     }
-        //     return new JsonResult(Ok(result));
-        // }
 
 
         // Remove

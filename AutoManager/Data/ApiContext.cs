@@ -1,4 +1,4 @@
-﻿//using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using AutoManager.Models;
 
@@ -6,7 +6,7 @@ using AutoManager.Models;
 
 namespace AutoManager.Data
 {
-    public class ApiContext: DbContext
+    public class ApiContext: IdentityDbContext
     {
         public DbSet<Requirement> Requirements { get; set; }
         
