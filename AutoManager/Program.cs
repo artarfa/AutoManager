@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using AutoManager.Data;
 
@@ -20,6 +21,11 @@ builder.Services.AddCors(options =>
 // Add services to the container.
 builder.Services.AddDbContext<ApiContext>
     (options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApiContext>()
+    .AddDefaultTokenProviders();
+
 
 
 builder.Services.AddControllers();
