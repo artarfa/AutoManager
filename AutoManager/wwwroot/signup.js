@@ -1,9 +1,9 @@
-document.addEventListener('DOMContentLoaded', () => 
+document.addEventListener('DOMContentLoaded', () =>
 {
-    const SERVER_URI = 'http://localhost:5167/api/Account/login'
-    const loginbutton = document.getElementById('loginButton')
+    const SERVER_URI = 'http://localhost:5167/api/Account/register'
+    const signupButton = document.getElementById('signupButton')
 
-    loginbutton.addEventListener('click', async (event) => {
+    signupButton.addEventListener('click', async (event) => {
         event.preventDefault()
 
         const email = document.getElementById('email').value;
@@ -15,19 +15,20 @@ document.addEventListener('DOMContentLoaded', () =>
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({email, password})
             });
-            console.log(response)
 
             if (!response.ok) {
-                alert("Invalid credentials")
+                const errorMessage = await response.text();
+                alert(errorMessage)
                 return;
             }
+            const msg = await response.text();
+            alert(msg);
 
-            alert("login successful");
             window.location.href = 'index.html';
         } catch (error) {
             console.log("Error:", error);
         }
     });
-    
+
 
 });
