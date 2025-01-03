@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
 }
 
 html, body {
@@ -22,6 +23,7 @@ h1 {
     text-align: center;
     font-size: 2.5rem;
     margin-top: 50px;
+    
 }
 
 h2 {
@@ -47,7 +49,13 @@ button {
 
 .tableDiv {
     overflow: auto;
+    min-width: 300px;
     max-height: 400px;
+    width: 75%;
+    overflow-x: hidden;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-left: 50px;
+    scrollbar-width: thin;
 }
 
 .tableDiv thead th{
@@ -55,6 +63,7 @@ button {
     top: 0;
     z-index: 1;
     background-color: #283149;
+    
 }
 
 input {
@@ -65,7 +74,7 @@ input {
 
 body {
     background-color: #4070f4;
-    overflow-y: hidden;
+    overflow-y: auto;
 }
 
 html, body {
@@ -84,9 +93,8 @@ h1 {
     margin-bottom: 100px;
 }
 table {
-    width: 80%;
-    margin-left:50px;
-    margin-bottom: 20px;
+    table-layout: fixed;
+    width: 100%;
     border-collapse: separate;
     border-spacing: 0;
     text-align: center;
@@ -97,6 +105,7 @@ table {
 
 .container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-start;
     margin-left: 50px;
     gap: 20px; /* space between divs */
@@ -107,12 +116,13 @@ table {
     flex: 1;
     max-width: 300px;
     margin-top: 50px;
-    height: 200px;
+    height: 225px;
     padding: 20px;
     border: 1px solid #ddd;
     background: #fff;
     border-radius: 5px;
     margin-bottom: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 
@@ -200,4 +210,13 @@ footer {
     position: absolute;
     bottom: 0;
     padding-left: 5px;
+}
+
+
+@media (max-width: 600px) {
+    .tableDiv {
+        width: 75%;
+        max-height: 200px; /* adjust based on your design needs */
+        min-height: 300px;
+    }
 }
