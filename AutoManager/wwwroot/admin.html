@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h2>Users</h2>
+
+<div class = "wrapper2">
+
+    <div class="userTable">
+        <table>
+            <thead>
+            <tr>
+                <th>Email</th>
+                <th>Role</th>
+            </tr>
+            </thead>
+            <tbody id="userTableRows"></tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="container">
+
+    <div id="addDiv">
+        <h3>Add a requirement</h3>
+        <form id="requirementInput">
+            <label for="title"></label><br>
+            <input type="text" id="title" name="title"><br>
+            <label for="description"></label><br>
+            <input type="text" id="description" name="description">
+            <button id="addRequirement" type="button">Add</button>
+        </form>
+    </div>
+
+
+
+
+    <div id ="updateDiv">
+        <h3>Update a requirement</h3>
+        <form id="updateInput">
+            <label for="id2"></label><br>
+            <input type="text" id="id2" name="id2"><br>
+            <button id="updateRequirement" type="button">Update</button>
+        </form>
+    </div>
+
+    <div id ="deleteDiv">
+        <h3>Delete a requirement</h3>
+        <form id="deleteInput">
+            <label for="id"></label><br>
+            <input type="text" id="id" name="id"><br>
+            <button id="deleteRequirement" type="button">Delete</button>
+        </form>
+    </div>
+
+
+</div>
+
+</div>
+
+
+<script src="admin.js"></script>
+</body>
+</html>

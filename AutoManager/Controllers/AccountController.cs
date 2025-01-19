@@ -6,24 +6,30 @@ using System.IdentityModel.Tokens.Jwt;       // For JwtSecurityToken, JwtSecurit
 using System.Security.Claims;                // For Claim, ClaimTypes
 using System.Text;                           // For Encoding
 using AutoManager.Models;
-
+using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("api/[controller]")]
 
 
-public class AccountController: ControllerBase
+public class AccountController : ControllerBase
 {
     private readonly UserManager<IdentityUser> _userManager;
     private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
     private readonly IConfiguration _configuration;
 
-    public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IConfiguration configuration)
+
+    public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager,
+        RoleManager<IdentityRole> roleManager, IConfiguration configuration)
     {
         _userManager = userManager;
         _signInManager = signInManager;
+        _roleManager = roleManager;
         _configuration = configuration;
     }
+    
+
 
     [HttpPost("register")]
     public async Task<ActionResult> Register(RegisterModel model)
@@ -31,11 +37,13 @@ public class AccountController: ControllerBase
         var user = new IdentityUser{ UserName = model.Email, Email = model.Email };
         var result = await _userManager.CreateAsync(user, model.Password);
 
-        if (!result.Succeeded)
+        if (result.Succeeded)
         {
-            return BadRequest(result.Errors);
+            
+            await _userManager.AddToRoleAsync(user, "User");
+            return Ok("User registered successfully");
         }
-        return Ok("Registered Successfully");
+        return BadRequest("Registration failed");
     }
 
     [HttpPost("login")]
@@ -57,13 +65,42 @@ public class AccountController: ControllerBase
         return Ok(new { token = tokenString });
 
     }
+    
+    // Assigning roles
+    //[Authorize (Roles = "Admin")]
+    [HttpPost("assign-role")]
+    public async Task<IActionResult> AssignRoleToUser([FromBody] RoleModel roleModel)
+    {
+        var user = await _userManager.FindByEmailAsync(roleModel.Email);
+        if (user == null)
+        {
+            return NotFound("User not found");
+        }
+        
+
+        var result = await _userManager.AddToRoleAsync(user, roleModel.Role);
+        
+        if (result.Succeeded)
+        {
+            return Ok($"Role '{roleModel.Role}' assigned to user '{roleModel.Email}' successfully.");
+        }
+        
+        var errors = result.Errors.Select(e => e.Description);
+        return BadRequest(errors);
+        
+    }
+    
+    
 
     // returns registered users 
     [HttpGet]    
     public async Task<ActionResult> GetAllUsers()
     {
         var users = await _userManager.Users.ToListAsync();
-        return Ok(users);
+        var userList = users.Select(u => new { u.Email, Roles = _userManager.GetRolesAsync(u).Result });
+        
+        
+        return Ok(userList);
         
     }
 
@@ -80,11 +117,11 @@ public class AccountController: ControllerBase
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
         
-        // var userRoles = await _userManager.GetRolesAsync(user);
-        // foreach (var role in userRoles)
-        // {
-        //     authClaims.Add(new Claim(ClaimTypes.Role, role));
-        // }
+        var userRoles = await _userManager.GetRolesAsync(user);
+        foreach (var role in userRoles)
+        { 
+            authClaims.Add(new Claim(ClaimTypes.Role, role)); 
+        }
         
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretkey));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

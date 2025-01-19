@@ -3,12 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using AutoManager.Models;
 using AutoManager.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace AutoManager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    
     public class RequirementsController : ControllerBase
     {
         private readonly ApiContext _context;
@@ -60,6 +62,7 @@ namespace AutoManager.Controllers
 
 
         // Remove
+
         [HttpDelete("{id}")]
         public JsonResult Delete(int id)
         {

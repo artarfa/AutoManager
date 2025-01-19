@@ -113,6 +113,7 @@ table {
 
 
 #addDiv , #updateDiv, #deleteDiv {
+    display: inline-block;
     flex: 1;
     max-width: 300px;
     margin-top: 50px;
@@ -205,6 +206,34 @@ tbody tr:nth-child(odd) {
     transform: scale(1.05);
     box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
 }
+
+
+.adminPage {
+    padding: 0.6em 1.2em;
+    position:absolute;
+    display: inline;
+    top: 0;
+    right: 0;
+    margin-right: 5px;
+    font-size: 1em;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: linear-gradient(45deg, blue, darkblue);
+    transition:
+            background 0.5s ease,
+            transform 0.5s ease,
+            box-shadow 0.5s ease
+}
+
+.adminPage:hover {
+    background: linear-gradient(135deg, blue, darkblue);
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+}
+
+
 
 footer {
     position: absolute;
