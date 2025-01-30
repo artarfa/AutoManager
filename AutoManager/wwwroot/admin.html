@@ -27,35 +27,25 @@
 
 <div class="container">
 
-    <div id="addDiv">
-        <h3>Add a requirement</h3>
-        <form id="requirementInput">
-            <label for="title"></label><br>
-            <input type="text" id="title" name="title"><br>
-            <label for="description"></label><br>
-            <input type="text" id="description" name="description">
-            <button id="addRequirement" type="button">Add</button>
-        </form>
-    </div>
-
-
-
-
     <div id ="updateDiv">
-        <h3>Update a requirement</h3>
+        <h3>Update User Role</h3>
         <form id="updateInput">
-            <label for="id2"></label><br>
-            <input type="text" id="id2" name="id2"><br>
+            <label for="email"></label><br>
+            <input type="text" id="email" name="email" placeholder="Email"><br>
+            <label for="newRole"></label><br>
+            <input type="text" id="newRole" name="newRole" placeholder="New Role">
             <button id="updateRequirement" type="button">Update</button>
         </form>
     </div>
 
     <div id ="deleteDiv">
-        <h3>Delete a requirement</h3>
+        <h3>Remove User Role</h3>
         <form id="deleteInput">
-            <label for="id"></label><br>
-            <input type="text" id="id" name="id"><br>
-            <button id="deleteRequirement" type="button">Delete</button>
+            <label for="removalEmail"></label><br>
+            <input type="text" id="removalEmail" name="id" placeholder="Email"><br>
+            <label for="removalRole"></label><br>
+            <input type="text" id="removalRole" name="removalRole" placeholder="Role to Remove">
+            <button id="deleteRequirement" type="button">Remove</button>
         </form>
     </div>
 

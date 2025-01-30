@@ -74,7 +74,7 @@ public class AccountController : ControllerBase
         var user = await _userManager.FindByEmailAsync(roleModel.Email);
         if (user == null)
         {
-            return NotFound("User not found");
+            return NotFound(new { message= "User not found"});
         }
         
 
@@ -82,13 +82,38 @@ public class AccountController : ControllerBase
         
         if (result.Succeeded)
         {
-            return Ok($"Role '{roleModel.Role}' assigned to user '{roleModel.Email}' successfully.");
+            return Ok(new {message = $"Role '{roleModel.Role}' assigned to user '{roleModel.Email}' successfully."});
         }
         
         var errors = result.Errors.Select(e => e.Description);
-        return BadRequest(errors);
-        
+        return BadRequest(new {errors});
     }
+
+    [HttpPost("remove-role")]
+
+    public async Task<IActionResult> RemoveRoleFromUser([FromBody] RoleModel roleModel)
+    {
+        var user = await _userManager.FindByEmailAsync(roleModel.Email);
+        if (user == null)
+        {
+            return NotFound(new { message = "User not found" });
+        }
+
+        if (!await _userManager.IsInRoleAsync(user, roleModel.Role))
+        {
+            return BadRequest(new {message = $"User '{roleModel.Email}' does not have role '{roleModel.Role}'"});
+        }
+        var result = await _userManager.RemoveFromRoleAsync(user, roleModel.Role);
+
+        if (result.Succeeded)
+        {
+            return Ok(new { message = $"Role '{roleModel.Role}' removed from user '{roleModel.Email}' successfully."});
+        }
+        
+        var errors = result.Errors.Select(e => e.Description);
+        return BadRequest(new {errors});
+    }
+    
     
     
 
