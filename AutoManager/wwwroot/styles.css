@@ -63,7 +63,24 @@ button {
     top: 0;
     z-index: 1;
     background-color: #283149;
-    
+}
+
+.userTable {
+    overflow: auto;
+    min-width: 300px;
+    max-height: 400px;
+    width: 75%;
+    overflow-x: hidden;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-left: 50px;
+    scrollbar-width: thin;
+}
+
+.userTable thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #283149;
 }
 
 input {
@@ -234,6 +251,33 @@ tbody tr:nth-child(odd) {
 }
 
 
+.requirementsPage {
+    padding: 0.6em 1.2em;
+    position:absolute;
+    display: inline;
+    width: fit-content;
+    top: 0;
+    right: 0;
+    margin-right: 5px;
+    font-size: 1em;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: linear-gradient(45deg, blue, darkblue);
+    transition:
+            background 0.5s ease,
+            transform 0.5s ease,
+            box-shadow 0.5s ease
+}
+
+.requirementsPage:hover {
+    background: linear-gradient(135deg, blue, darkblue);
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+}
+
+
 
 footer {
     position: absolute;
@@ -245,7 +289,13 @@ footer {
 @media (max-width: 600px) {
     .tableDiv {
         width: 75%;
-        max-height: 200px; /* adjust based on your design needs */
+        max-height: 200px; 
+        min-height: 300px;
+    }
+    
+    .userTable {
+        width: 75%;
+        max-height: 200px; 
         min-height: 300px;
     }
 }

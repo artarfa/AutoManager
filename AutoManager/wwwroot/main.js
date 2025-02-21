@@ -55,12 +55,28 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             body: JSON.stringify(requirement),
         })
-            .then(res => res.json())
+            .then(response => {
+                // Check if the response is not OK (error)
+                if (!response.ok) {
+                    // Extract the full error message from the response body
+                    return response.text().then(text => {
+                        throw new Error(text);
+                    });
+                    
+                }
+                return response.json();
+            })
             .then(data => {
                 fetchAPIData();
                 document.getElementById("title").value = '';
                 document.getElementById("description").value = '';
             })
+            .catch(error => {
+                alert(error.message);
+                // display error message if new requirement is too similar. Then, clear fields.
+                document.getElementById("title").value = '';
+                document.getElementById("description").value = '';
+            });
         
     }
     document.getElementById('addRequirement').addEventListener('click', insertRow);
