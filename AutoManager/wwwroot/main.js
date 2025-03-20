@@ -1,6 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
-    
+
+    window.openForm = function openForm() {
+        document.getElementById("myForm").style.display = "block";
+    }
+
+    window.closeForm = function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+    }
     document.getElementById('title').placeholder = "Title"
     document.getElementById('description').placeholder = "Description"
     document.getElementById('id').placeholder = "ID of Requirement"
@@ -62,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     return response.text().then(text => {
                         throw new Error(text);
                     });
-                    
                 }
                 return response.json();
             })
@@ -77,7 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById("title").value = '';
                 document.getElementById("description").value = '';
             });
-        
     }
     document.getElementById('addRequirement').addEventListener('click', insertRow);
     
@@ -122,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(res => res.json())
         .then(data => {
             console.log(data)
-
             const newTitle = prompt("Enter updated title:", data.title);
             if (newTitle === null) {
                 // User cancelled the prompt
@@ -133,20 +136,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 // User cancelled the prompt
                 return;
             }
-
+            
             const updatedRequirement = {
                 id: data.id,
                 title: newTitle.trim(),
                 description: newDescription.trim()
             };
-
             if (!updatedRequirement.title || !updatedRequirement.description) {
                 alert("Title and Description cannot be empty.");
                 return;
             }
-            
             // Update existing item
-            
             fetch(SERVER_URI, {
                 method: 'PUT',
                 headers: {
@@ -154,18 +154,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify(updatedRequirement),
             })
-                .then(res => res.json())
-            .then(updatedData => {
-                fetchAPIData();
-                document.getElementById("id2").value = '';
+                .then(response => {
+                    // Check if the response is not OK (error)
+                    if (!response.ok) {
+                        // Extract the full error message from the response body
+                        return response.text().then(text => {
+                            throw new Error(text);
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    fetchAPIData();
+                })
+                .catch(error => {
+                    alert(error.message);
+                    document.getElementById("id2").value = '';
             })
-            
-            
-
         })
     }
     document.getElementById('updateRequirement').addEventListener('click', updateRow);
-    
-    
-    
+
 });
