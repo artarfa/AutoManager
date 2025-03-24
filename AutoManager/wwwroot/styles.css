@@ -385,7 +385,7 @@ tbody tr:nth-child(odd) {
 /* ====== Open Form Button ====== */
 /* Fixed to the bottom right, styled to match your existing buttons */
 .open-button {
-    padding: 0.6em 1.2em;
+    padding: 0px;
     position:absolute;
     display: inline;
     bottom: 10px;
